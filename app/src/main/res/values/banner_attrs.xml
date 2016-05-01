@@ -26,12 +26,10 @@
         <attr name="banner_pointAutoPlayInterval" format="integer" />
         <!-- 页码切换过程的时间长度 -->
         <attr name="banner_pageChangeDuration" format="integer" />
-
         <!-- 提示文案的文字颜色 -->
         <attr name="banner_tipTextColor" format="reference|color" />
         <!-- 提示文案的文字大小 -->
         <attr name="banner_tipTextSize" format="dimension" />
-        <!-- 是否是轮播状态还是非轮播状态 -->
     </declare-styleable>
 
 </resources>

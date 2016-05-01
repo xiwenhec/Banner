@@ -4,25 +4,19 @@ import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
-
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 无限轮播的ViewPager
  * Created by xiwen on 2016/4/13.
  */
 public class SLooperViewPager extends ViewPager {
-
-    private static final String TAG = SLooperViewPager.class.getSimpleName();
-
     private SLooperAdapter mAdapter;
     private List<OnPageChangeListener> mOnPageChangeListeners;
-
     public SLooperViewPager(Context context) {
-        super(context);
-        init(context);
+        this(context, null);
     }
 
 
@@ -50,14 +44,17 @@ public class SLooperViewPager extends ViewPager {
     }
 
     @Override
-    public void setCurrentItem(int item, boolean smoothScroll) {
-        super.setCurrentItem(mAdapter.toInnerPosition(item), smoothScroll);
+    public void setCurrentItem(int position, boolean smoothScroll) {
+        //item的被调用者传递过来的位置是没有原始的位置，即切换位置是从0到DataSize-1之间切换
+        //但是对于外层ViewPager而言，他需要的位置范围应该是映射后的位置切换，即：出去两边映射的页面
+        //应该是从1到映射后的倒数第二个位置
+
+        super.setCurrentItem(mAdapter.toLooperPosition(position), smoothScroll);
     }
 
 
     /**
-     * 外层ViewPager中的item是通过内层位置映射关系得到的，这里我们不想让外界知道，
-     * 当我们得到此方法得到值，我们希望和我们传入的数据集的位置是一致的
+     * 外层ViewPager中的item是通过内层位置映射关系得到的
      *
      * @return 返回映射后的
      */
@@ -65,6 +62,9 @@ public class SLooperViewPager extends ViewPager {
     public int getCurrentItem() {
         return mAdapter.getInnerAdapterPosition(super.getCurrentItem());
     }
+
+
+
 
     @Override
     public void clearOnPageChangeListeners() {
@@ -99,36 +99,42 @@ public class SLooperViewPager extends ViewPager {
 
 
     private OnPageChangeListener mOnPageChangeListener = new OnPageChangeListener() {
+        //上一次的偏移量
         private float mPreviousOffset = -1;
+        //上一次的位置
         private float mPreviousPosition = -1;
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            if (mAdapter != null) {
+                int innerPosition = mAdapter.getInnerAdapterPosition(position);
 
+                /*
+                    positionOffset =0:滚动完成，
+                    position =0 :开始的边界
+                    position =mAdapter.getCount()-1:结束的边界
+                 */
+                if (positionOffset == 0 && mPreviousOffset == 0 && (position == 0 || position == mAdapter.getCount() - 1)) {
+                    //强制回到映射位置
+                    setCurrentItem(innerPosition, false);
+                }
+                mPreviousOffset = positionOffset;
 
-            int innerPosition = mAdapter.getInnerAdapterPosition(position);
-            Log.d(TAG, "onPageScrolled: innerpoition  "+innerPosition+"   position:  "+position+" positionOffset "+positionOffset);
-
-            //当滚动结束，而且到达边界的时候，强制映射到对应的位置
-            if (positionOffset == 0 && mPreviousOffset == 0 && (position == 0 || position == mAdapter.getCount() - 1)) {
-
-
-                setCurrentItem(innerPosition, false);
-            }
-
-            mPreviousOffset = positionOffset;
-
-            if (mOnPageChangeListeners != null) {
-                for (int i = 0; i < mOnPageChangeListeners.size(); i++) {
-                    OnPageChangeListener listener = mOnPageChangeListeners.get(i);
-                    if (listener != null) {
-                        if (innerPosition != mAdapter.getInnerCount() - 1) {
-                            listener.onPageScrolled(innerPosition, positionOffset, positionOffsetPixels);
-                        } else {
-                            if (positionOffset > 0.5) {
-                                listener.onPageScrolled(0, 0, 0);
+                if (mOnPageChangeListeners != null) {
+                    for (int i = 0; i < mOnPageChangeListeners.size(); i++) {
+                        OnPageChangeListener listener = mOnPageChangeListeners.get(i);
+                        if (listener != null) {
+                            //如果内层的位置没有达到最后一个，内层滚动监听器正常设置
+                            if (innerPosition != mAdapter.getInnerCount() - 1) {
+                                listener.onPageScrolled(innerPosition, positionOffset, positionOffsetPixels);
                             } else {
-                                listener.onPageScrolled(innerPosition, 0, 0);
+                                //如果到达最后一个位置，当偏移量达到0.5以上，这告诉监听器，这个页面已经到达内层的第一个位置
+                                //否则还是最后一个位置
+                                if (positionOffset > 0.5) {
+                                    listener.onPageScrolled(0, 0, 0);
+                                } else {
+                                    listener.onPageScrolled(innerPosition, 0, 0);
+                                }
                             }
                         }
                     }
@@ -153,12 +159,10 @@ public class SLooperViewPager extends ViewPager {
                 }
             }
 
-
         }
 
         @Override
         public void onPageScrollStateChanged(int state) {
-
             if (mAdapter != null) {
                 int position = SLooperViewPager.super.getCurrentItem();
                 int realPosition = mAdapter.getInnerAdapterPosition(position);

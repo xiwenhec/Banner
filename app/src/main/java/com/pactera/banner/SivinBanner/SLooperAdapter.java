@@ -5,10 +5,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
+ * 无限轮播的viewPager适配器
  * Created by xiwen on 2016/4/13.
  */
 public class SLooperAdapter extends PagerAdapter {
     private PagerAdapter mAdapter;
+
+    private int mItemCount=0;
 
     public SLooperAdapter(PagerAdapter adapter) {
         mAdapter = adapter;
@@ -19,7 +22,6 @@ public class SLooperAdapter extends PagerAdapter {
         //如果层ViewPager中有两个或两个以上的Item的时候，则映射出边界Item，否则显示与内层个数一致
         return mAdapter.getCount() < 1 ? mAdapter.getCount() : mAdapter.getCount() + 2;
     }
-
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
@@ -34,13 +36,16 @@ public class SLooperAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+
         return mAdapter.instantiateItem(container, getInnerAdapterPosition(position));
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
+
         mAdapter.destroyItem(container, getInnerAdapterPosition(position), object);
     }
+
 
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
@@ -53,11 +58,25 @@ public class SLooperAdapter extends PagerAdapter {
     }
 
 
+    @Override
+    public void notifyDataSetChanged() {
+        mItemCount = getCount();
+        super.notifyDataSetChanged();
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        if (mItemCount>0){
+            mItemCount--;
+            return POSITION_NONE;
+        }
+        return super.getItemPosition(object);
+    }
+
     /**
-     * 获取内层ViewPager认识的Position
-     *
-     * @param position 外层ViewPager识别的position
-     * @return 内层viewpagerViewPager识别的Position
+     * 根据外层position的获取内层的position
+     * @param position 外层ViewPager的position
+     * @return 外层viewPager当前数据位置对应的内层viewPager对应的位置。
      */
     public int getInnerAdapterPosition(int position) {
         //viewPager真正的可用的个数
@@ -78,10 +97,15 @@ public class SLooperAdapter extends PagerAdapter {
         return mAdapter.getCount();
     }
 
-    public int toInnerPosition(int item) {
+    /**
+     * 根据内层postion的位置，返回映射后外层position的位置
+     * @param position 内层position的位置
+     * @return 无限轮播ViewPager的切换位置
+     */
+    public int toLooperPosition(int position) {
         if (getInnerCount() > 1) {
-            return item + 1;
-        } else return item;
+            return position + 1;
+        } else return position;
     }
 
 
