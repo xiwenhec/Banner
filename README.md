@@ -13,7 +13,7 @@
 ```java
  mBanner = (Banner) findViewById(R.id.id_banner);
 ```
-第三步：实例化适配器，并设置适配器，建议您在`new BannerAdapter<BannerModel>`的时候将后面的`<>`中的泛型加上，然后在根据工具提示实现未完成的方法。这样`bindData(ImageView imageView, TextView textView, BannerModel bannerModel)` 的第三个参数就是你加入的泛型类型。其中`mDatas`你的`banner`的数据集合，具体过程使用就会有所体会。
+第三步：实例化适配器，并设置适配器，建议您在`new BannerAdapter<BannerModel>`的时候将后面的`<>`中的泛型加上，然后在根据工具提示实现未完成的方法。这样`bindData(ImageView imageView, BannerModel bannerModel)` 的第三个参数就是你加入的泛型类型。其中`mDatas`你的`banner`的数据集合，具体过程使用就会有所体会。
 注意：不要忘了mDatas的初始化
 ```java
  BannerAdapter adapter = new BannerAdapter<BannerModel>(mDatas) {
