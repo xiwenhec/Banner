@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.pactera.banner.R;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -32,6 +33,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 广告轮播控件
  * Created by xiwen on 2016/4/12.
  */
 public class Banner extends RelativeLayout {
@@ -53,8 +55,7 @@ public class Banner extends RelativeLayout {
     private SLooperViewPager mViewPager;
 
 
-    //下面这两个控件，存放到一个相对布局中，由于不需要设成成员变量，故此没写
-
+    //下面这两个控件，存放到一个相对布局中，由于不需要设置成员变量，故此没写
     /**
      * 轮播控件的提示文字
      */
@@ -65,7 +66,7 @@ public class Banner extends RelativeLayout {
     private int mTipTextSize;
 
     /**
-     * 提示文字的颜色
+     * 提示文字的颜色，默认是白色
      */
     private int mTipTextColor = Color.WHITE;
 
@@ -76,10 +77,10 @@ public class Banner extends RelativeLayout {
     /**
      * 点的drawable资源id
      */
-    private int mPointDrawableResId = R.drawable.selector_basebanner_point;
+    private int mPointDrawableResId = R.drawable.selector_banner_point;
 
     /**
-     * 点的layout的属性
+     * 点在容器中的layout的属性
      */
     private int mPointGravity = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
     private int mPointLeftRightMargin;
@@ -108,13 +109,16 @@ public class Banner extends RelativeLayout {
     /**
      * 是否正在播放
      */
-    private boolean mIsAutoPlaying = false;
+    private boolean mPlaying = false;
 
     /**
      * 当前的页面的位置
      */
     protected int currentPosition;
 
+    /**
+     * Banner控件的适配器
+     */
     private BannerAdapter mBannerAdapter;
 
     /**
@@ -126,12 +130,7 @@ public class Banner extends RelativeLayout {
     /**
      * 播放下一个执行器
      */
-    private Handler mPlayHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            scrollToNextItem(currentPosition);
-        }
-    };
+    private Handler mPlayHandler = new PlayHandler(this);
 
 
     public Banner(Context context) {
@@ -169,11 +168,11 @@ public class Banner extends RelativeLayout {
         mPointContainerBackgroundDrawable = new ColorDrawable(Color.parseColor("#33aaaaaa"));
     }
 
-    public static int dp2px(Context context, float dpValue) {
+    private int dp2px(Context context, float dpValue) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, context.getResources().getDisplayMetrics());
     }
 
-    public static int sp2px(Context context, float spValue) {
+    private int sp2px(Context context, float spValue) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spValue, context.getResources().getDisplayMetrics());
     }
 
@@ -184,7 +183,7 @@ public class Banner extends RelativeLayout {
      * @param attrs   attrs
      */
     private void initCustomAttrs(Context context, AttributeSet attrs) {
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.BaseBanner);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SivinBanner);
         final int N = typedArray.getIndexCount();
         for (int i = 0; i < N; i++) {
             initCustomAttr(typedArray.getIndex(i), typedArray);
@@ -193,36 +192,36 @@ public class Banner extends RelativeLayout {
     }
 
     private void initCustomAttr(int attr, TypedArray typedArray) {
-        if (attr == R.styleable.BaseBanner_banner_pointDrawable) {
+        if (attr == R.styleable.SivinBanner_banner_pointDrawable) {
             //指示器点的样式资源id
-            mPointDrawableResId = typedArray.getResourceId(attr, R.drawable.selector_basebanner_point);
-        } else if (attr == R.styleable.BaseBanner_banner_pointContainerBackground) {
+            mPointDrawableResId = typedArray.getResourceId(attr, R.drawable.selector_banner_point);
+        } else if (attr == R.styleable.SivinBanner_banner_pointContainerBackground) {
             //指示器容器背景样式
             mPointContainerBackgroundDrawable = typedArray.getDrawable(attr);
 
-        } else if (attr == R.styleable.BaseBanner_banner_pointLeftRightMargin) {
+        } else if (attr == R.styleable.SivinBanner_banner_pointLeftRightMargin) {
             //指示器左右边距
             mPointLeftRightMargin = typedArray.getDimensionPixelSize(attr, mPointLeftRightMargin);
-        } else if (attr == R.styleable.BaseBanner_banner_pointContainerLeftRightPadding) {
+        } else if (attr == R.styleable.SivinBanner_banner_pointContainerLeftRightPadding) {
             //指示器容器的左右padding
             mPointContainerLeftRightPadding = typedArray.getDimensionPixelSize(attr, mPointContainerLeftRightPadding);
-        } else if (attr == R.styleable.BaseBanner_banner_pointTopBottomMargin) {
+        } else if (attr == R.styleable.SivinBanner_banner_pointTopBottomMargin) {
 
             //指示器的上下margin
             mPointTopBottomMargin = typedArray.getDimensionPixelSize(attr, mPointTopBottomMargin);
-        } else if (attr == R.styleable.BaseBanner_banner_pointGravity) {
+        } else if (attr == R.styleable.SivinBanner_banner_pointGravity) {
             //指示器在容器中的位置属性
             mPointGravity = typedArray.getInt(attr, mPointGravity);
-        } else if (attr == R.styleable.BaseBanner_banner_pointAutoPlayInterval) {
+        } else if (attr == R.styleable.SivinBanner_banner_pointAutoPlayInterval) {
             //轮播的间隔
             mAutoPlayInterval = typedArray.getInteger(attr, mAutoPlayInterval);
-        } else if (attr == R.styleable.BaseBanner_banner_pageChangeDuration) {
+        } else if (attr == R.styleable.SivinBanner_banner_pageChangeDuration) {
             //页面切换的持续时间
             mPageChangeDuration = typedArray.getInteger(attr, mPageChangeDuration);
-        } else if (attr == R.styleable.BaseBanner_banner_tipTextColor) {
+        } else if (attr == R.styleable.SivinBanner_banner_tipTextColor) {
             //提示文字颜色
             mTipTextColor = typedArray.getColor(attr, mTipTextColor);
-        } else if (attr == R.styleable.BaseBanner_banner_tipTextSize) {
+        } else if (attr == R.styleable.SivinBanner_banner_tipTextSize) {
             //提示文字大小
             mTipTextSize = typedArray.getDimensionPixelSize(attr, mTipTextSize);
         }
@@ -237,7 +236,7 @@ public class Banner extends RelativeLayout {
     private void initView(Context context) {
         mContext = context;
 
-        mItemArrays = new SparseArray();
+        mItemArrays = new SparseArray<>();
 
         //初始化ViewPager
         mViewPager = new SLooperViewPager(context);
@@ -247,6 +246,7 @@ public class Banner extends RelativeLayout {
 
         //设置页面切换的持续时间
         setPageChangeDuration(mPageChangeDuration);
+
 
         //创建指示器容器的相对布局
         RelativeLayout indicatorContainerRl = new RelativeLayout(context);
@@ -260,7 +260,6 @@ public class Banner extends RelativeLayout {
         indicatorContainerRl.setPadding(mPointContainerLeftRightPadding, 0, mPointContainerLeftRightPadding, 0);
         //初始化指示器容器的布局参数
         LayoutParams indicatorContainerLp = new LayoutParams(RMP, RWC);
-
         // 设置指示器容器内的子view的布局方式
         if ((mPointGravity & Gravity.VERTICAL_GRAVITY_MASK) == Gravity.TOP) {
             indicatorContainerLp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
@@ -270,9 +269,10 @@ public class Banner extends RelativeLayout {
         //将指示器容器添加到父View中
         addView(indicatorContainerRl, indicatorContainerLp);
 
-        //初始化存放点的线性布局
+
+        //初始化存放点的容器线性布局
         mPointContainerLl = new LinearLayout(context);
-        //设置线性布局的id
+        //设置点容器布局的id
         mPointContainerLl.setId(R.id.banner_pointContainerId);
         //设置线性布局的方向
         mPointContainerLl.setOrientation(LinearLayout.HORIZONTAL);
@@ -280,6 +280,8 @@ public class Banner extends RelativeLayout {
         LayoutParams pointContainerLp = new LayoutParams(RWC, RWC);
         //将点容器存放到指示器容器中
         indicatorContainerRl.addView(mPointContainerLl, pointContainerLp);
+
+
         //初始化tip的layout尺寸参数，高度和点的高度一致
         LayoutParams tipLp = new LayoutParams(RMP, getResources().getDrawable(mPointDrawableResId).getIntrinsicHeight() + 2 * mPointTopBottomMargin);
         mTipTextView = new TextView(context);
@@ -304,8 +306,6 @@ public class Banner extends RelativeLayout {
             pointContainerLp.addRule(RelativeLayout.CENTER_HORIZONTAL);
             tipLp.addRule(RelativeLayout.LEFT_OF, R.id.banner_pointContainerId);
         }
-
-
     }
 
 
@@ -314,9 +314,11 @@ public class Banner extends RelativeLayout {
      * 这样的做法，可以使在刷新获数据的时候提升性能
      */
     private void initPoints() {
-
+        //获取容器中原有点的数量
         int childCount = mPointContainerLl.getChildCount();
+        //获取目标点的数据量
         int dataSize = mData.size();
+        //获取增加获取删减点的数量
         int offset = dataSize - childCount;
         if (offset == 0)
             return;
@@ -396,14 +398,13 @@ public class Banner extends RelativeLayout {
     }
 
 
-
     /**
      * 设置页码切换过程的时间长度
      *
      * @param duration 页码切换过程的时间长度
      */
     public void setPageChangeDuration(int duration) {
-
+        mPageChangeDuration = duration;
     }
 
     /**
@@ -421,7 +422,6 @@ public class Banner extends RelativeLayout {
      * viewPager的适配器
      */
     private final class InnerPagerAdapter extends PagerAdapter {
-        int mCount = 0;
 
         @Override
         public int getCount() {
@@ -430,8 +430,8 @@ public class Banner extends RelativeLayout {
 
         @Override
         public Object instantiateItem(ViewGroup container, final int position) {
-            ImageView  view = createItemView(position);
-            mBannerAdapter.setImageViewSource(view, mTipTextView, position);
+            ImageView view = createItemView(position);
+            mBannerAdapter.setImageViewSource(view, position);
             view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -448,7 +448,6 @@ public class Banner extends RelativeLayout {
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
-            object=null;
         }
 
         @Override
@@ -479,21 +478,20 @@ public class Banner extends RelativeLayout {
     ;
 
 
-    private OnVpItemClickListener onVpItemClickListener;
+    private OnBannerItemClickListener onVpItemClickListener;
 
     /**
      * 设置viewPage的Item点击监听器
      *
      * @param listener
      */
-    public void setOnItemClickListener(OnVpItemClickListener listener) {
+    public void setOnBannerItemClickListener(OnBannerItemClickListener listener) {
         this.onVpItemClickListener = listener;
     }
 
-    public interface OnVpItemClickListener {
+    public interface OnBannerItemClickListener {
         void onItemClick(int position);
     }
-
 
 
     /**
@@ -504,7 +502,7 @@ public class Banner extends RelativeLayout {
         if (!isValid()) {
             return;
         }
-        if (mIsAutoPlaying) {
+        if (mPlaying) {
             return;
         } else {
             pauseScroll();
@@ -519,7 +517,7 @@ public class Banner extends RelativeLayout {
                     mPlayHandler.obtainMessage().sendToTarget();
                 }
             }, mAutoPlayInterval, mAutoPlayInterval, TimeUnit.SECONDS);
-            mIsAutoPlaying = true;
+            mPlaying = true;
         }
     }
 
@@ -532,7 +530,7 @@ public class Banner extends RelativeLayout {
             mExecutor.shutdown();
             mExecutor = null;
         }
-        mIsAutoPlaying = false;
+        mPlaying = false;
     }
 
     @Override
@@ -556,7 +554,7 @@ public class Banner extends RelativeLayout {
      *
      * @return
      */
-    protected boolean isValid() {
+    private boolean isValid() {
         if (mViewPager == null) {
             Log.e(TAG, "ViewPager is not exist!");
             return false;
@@ -571,7 +569,7 @@ public class Banner extends RelativeLayout {
     /**
      * 设置数据的集合
      */
-    public void setSource() {
+    private void setSource() {
         List list = mBannerAdapter.getDatas();
         if (list == null) {
             Log.d(TAG, "setSource: list==null");
@@ -602,6 +600,28 @@ public class Banner extends RelativeLayout {
         initPoints();
         mViewPager.getAdapter().notifyDataSetChanged();
         mViewPager.setCurrentItem(0, false);
-        goScroll();
+        if (mData.size() > 1)
+            goScroll();
     }
+
+
+    /**
+     * 静态内部类，防止发生内存泄露
+     */
+    static class PlayHandler extends Handler {
+        WeakReference<Banner> mWeakBanner;
+
+        public PlayHandler(Banner banner) {
+            this.mWeakBanner = new WeakReference<Banner>(banner);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            Banner weakBanner = mWeakBanner.get();
+            if (weakBanner != null)
+                weakBanner.scrollToNextItem(weakBanner.currentPosition);
+        }
+    }
+
+
 }

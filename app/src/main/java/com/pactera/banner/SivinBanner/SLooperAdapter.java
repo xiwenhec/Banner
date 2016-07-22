@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 public class SLooperAdapter extends PagerAdapter {
     private PagerAdapter mAdapter;
 
-    private int mItemCount=0;
+    private int mItemCount = 0;
 
     public SLooperAdapter(PagerAdapter adapter) {
         mAdapter = adapter;
@@ -20,7 +20,7 @@ public class SLooperAdapter extends PagerAdapter {
     @Override
     public int getCount() {
         //如果层ViewPager中有两个或两个以上的Item的时候，则映射出边界Item，否则显示与内层个数一致
-        return mAdapter.getCount() < 1 ? mAdapter.getCount() : mAdapter.getCount() + 2;
+        return mAdapter.getCount() <= 1 ? mAdapter.getCount() : mAdapter.getCount() + 2;
     }
 
     @Override
@@ -66,15 +66,12 @@ public class SLooperAdapter extends PagerAdapter {
 
     @Override
     public int getItemPosition(Object object) {
-        if (mItemCount>0){
-            mItemCount--;
-            return POSITION_NONE;
-        }
-        return super.getItemPosition(object);
+        return POSITION_NONE;
     }
 
     /**
      * 根据外层position的获取内层的position
+     *
      * @param position 外层ViewPager的position
      * @return 外层viewPager当前数据位置对应的内层viewPager对应的位置。
      */
@@ -99,6 +96,7 @@ public class SLooperAdapter extends PagerAdapter {
 
     /**
      * 根据内层postion的位置，返回映射后外层position的位置
+     *
      * @param position 内层position的位置
      * @return 无限轮播ViewPager的切换位置
      */

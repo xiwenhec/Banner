@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="BaseBanner">
+    <declare-styleable name="SivinBanner">
         <!-- 指示点容器背景 -->
         <attr name="banner_pointContainerBackground" format="reference|color" />
         <!-- 指示点背景 -->
@@ -20,8 +20,6 @@
             <flag name="right" value="0x05" />
             <flag name="center_horizontal" value="0x01" />
         </attr>
-        <!-- 是否开启自动轮播 -->
-        <attr name="banner_pointAutoPlayAble" format="boolean" />
         <!-- 自动轮播的时间间隔 -->
         <attr name="banner_pointAutoPlayInterval" format="integer" />
         <!-- 页码切换过程的时间长度 -->

@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = this;
+
         mBanner = (Banner) findViewById(R.id.id_banner);
 
         BannerAdapter adapter = new BannerAdapter<BannerModel>(mDatas) {
@@ -119,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
         mBanner.notifiDataHasChanged();
     }
 
-
     private void getData2() {
         mDatas.clear();
         BannerModel model = null;
@@ -130,11 +130,11 @@ public class MainActivity extends AppCompatActivity {
         model = new BannerModel();
         model.setImageUrl("https://gma.alicdn.com/simba/img/TB1txffHVXXXXayXVXXSutbFXXX.jpg_q50.jpg");
         model.setTips("这是页面2");
-        mDatas.add(model);
+//        mDatas.add(model);
         model = new BannerModel();
         model.setImageUrl("https://gw.alicdn.com/tps/i2/TB1ku8oMFXXXXciXpXXdIns_XXX-1125-352.jpg_q50.jpg");
         model.setTips("这是页面3");
-        mDatas.add(model);
+//        mDatas.add(model);
         mBanner.notifiDataHasChanged();
     }
 

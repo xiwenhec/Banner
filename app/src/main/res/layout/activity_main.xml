@@ -16,8 +16,19 @@
         android:id="@+id/id_banner"
         android:layout_width="match_parent"
         android:layout_height="180dp"
+
+        app:banner_pointContainerLeftRightPadding="10dp"
+        app:banner_pointTopBottomMargin="6dp"
+        app:banner_pointLeftRightMargin="3dp"
         app:banner_pointGravity="right"
+        app:banner_pointContainerBackground="#33000000"
+        app:banner_pointDrawable="@drawable/selector_banner_point"
+        app:banner_pointAutoPlayInterval="3"
+        app:banner_pageChangeDuration="800"
+        app:banner_tipTextColor="#FFFFFF"
+        app:banner_tipTextSize="12sp"
         />
+
 
 
 

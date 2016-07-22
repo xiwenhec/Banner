@@ -9,7 +9,6 @@ import java.util.List;
  * Created by sivin on 2016/5/1.
  */
 public abstract class BannerAdapter<T> {
-    private static final String TAG = "BannerAdapter";
     private List<T> mDatas;
 
     public List<T> getDatas() {
@@ -20,7 +19,7 @@ public abstract class BannerAdapter<T> {
         mDatas = datas;
     }
 
-    public void setImageViewSource(ImageView imageView, TextView textView, int position) {
+    public void setImageViewSource(ImageView imageView,int position) {
         bindImage(imageView, mDatas.get(position));
     }
 
