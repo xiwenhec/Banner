@@ -1,6 +1,5 @@
-
 ###如何使用
-在此仿造`listView`的实现习惯，增加了一个适配器，调用者只需要这样一下几步就可以完成:
+在此我模仿`listView`的实现习惯，增加了一个适配器，调用者只需要这样一下几步就可以完成:
 第一步：在xml代码写入控件
 ```xml
 <com.pactera.banner.SivinBanner.Banner
