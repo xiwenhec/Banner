@@ -1,11 +1,11 @@
-package com.pactera.banner.SivinBanner;
+package com.sivin;
 
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * æ— é™è½®æ’­çš„viewPageré€‚é…å™¨
+ * ÎŞÏŞÂÖ²¥µÄviewPagerÊÊÅäÆ÷
  * Created by xiwen on 2016/4/13.
  */
 public class SLooperAdapter extends PagerAdapter {
@@ -19,7 +19,7 @@ public class SLooperAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        //å¦‚æœå±‚ViewPagerä¸­æœ‰ä¸¤ä¸ªæˆ–ä¸¤ä¸ªä»¥ä¸Šçš„Itemçš„æ—¶å€™ï¼Œåˆ™æ˜ å°„å‡ºè¾¹ç•ŒItemï¼Œå¦åˆ™æ˜¾ç¤ºä¸å†…å±‚ä¸ªæ•°ä¸€è‡´
+        //Èç¹û²ãViewPagerÖĞÓĞÁ½¸ö»òÁ½¸öÒÔÉÏµÄItemµÄÊ±ºò£¬ÔòÓ³Éä³ö±ß½çItem£¬·ñÔòÏÔÊ¾ÓëÄÚ²ã¸öÊıÒ»ÖÂ
         return mAdapter.getCount() <= 1 ? mAdapter.getCount() : mAdapter.getCount() + 2;
     }
 
@@ -70,15 +70,15 @@ public class SLooperAdapter extends PagerAdapter {
     }
 
     /**
-     * æ ¹æ®å¤–å±‚positionçš„è·å–å†…å±‚çš„position
+     * ¸ù¾İÍâ²ãpositionµÄ»ñÈ¡ÄÚ²ãµÄposition
      *
-     * @param position å¤–å±‚ViewPagerçš„position
-     * @return å¤–å±‚viewPagerå½“å‰æ•°æ®ä½ç½®å¯¹åº”çš„å†…å±‚viewPagerå¯¹åº”çš„ä½ç½®ã€‚
+     * @param position Íâ²ãViewPagerµÄposition
+     * @return Íâ²ãviewPagerµ±Ç°Êı¾İÎ»ÖÃ¶ÔÓ¦µÄÄÚ²ãviewPager¶ÔÓ¦µÄÎ»ÖÃ¡£
      */
     public int getInnerAdapterPosition(int position) {
-        //viewPagerçœŸæ­£çš„å¯ç”¨çš„ä¸ªæ•°
+        //viewPagerÕæÕıµÄ¿ÉÓÃµÄ¸öÊı
         int realCount = getInnerCount();
-        //å†…å±‚æ²¡æœ‰å¯ç”¨çš„Itemåˆ™æ¢å›ä¸ºé›¶
+        //ÄÚ²ãÃ»ÓĞ¿ÉÓÃµÄItemÔò»»»ØÎªÁã
         if (realCount == 0)
             return 0;
         int realPosition = (position - 1) % realCount;
@@ -88,17 +88,17 @@ public class SLooperAdapter extends PagerAdapter {
     }
 
     /**
-     * @return å†…å±‚ViewPagerä¸­å¯ç”¨çš„itemä¸ªæ•°
+     * @return ÄÚ²ãViewPagerÖĞ¿ÉÓÃµÄitem¸öÊı
      */
     public int getInnerCount() {
         return mAdapter.getCount();
     }
 
     /**
-     * æ ¹æ®å†…å±‚postionçš„ä½ç½®ï¼Œè¿”å›æ˜ å°„åå¤–å±‚positionçš„ä½ç½®
+     * ¸ù¾İÄÚ²ãpostionµÄÎ»ÖÃ£¬·µ»ØÓ³ÉäºóÍâ²ãpositionµÄÎ»ÖÃ
      *
-     * @param position å†…å±‚positionçš„ä½ç½®
-     * @return æ— é™è½®æ’­ViewPagerçš„åˆ‡æ¢ä½ç½®
+     * @param position ÄÚ²ãpositionµÄÎ»ÖÃ
+     * @return ÎŞÏŞÂÖ²¥ViewPagerµÄÇĞ»»Î»ÖÃ
      */
     public int toLooperPosition(int position) {
         if (getInnerCount() > 1) {

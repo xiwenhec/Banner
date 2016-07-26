@@ -1,4 +1,4 @@
-package com.pactera.banner.SivinBanner;
+package com.sivin;
 
 import android.widget.ImageView;
 import android.widget.TextView;

@@ -12,9 +12,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.pactera.banner.SivinBanner.BannerAdapter;
-import com.pactera.banner.SivinBanner.Banner;
 import com.pactera.banner.model.BannerModel;
+import com.sivin.Banner;
+import com.sivin.BannerAdapter;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.BitmapCallback;
 
@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.Call;
+
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();

@@ -27,4 +27,5 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
     compile 'com.squareup.okio:okio:1.7.0'
     compile files('libs/okhttputils-2_3_9.jar')
+    compile project(':banner')
 }

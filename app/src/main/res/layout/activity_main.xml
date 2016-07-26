@@ -12,11 +12,10 @@
     tools:context="com.pactera.banner.MainActivity"
     android:orientation="vertical">
 
-    <com.pactera.banner.SivinBanner.Banner
+    <com.sivin.Banner
         android:id="@+id/id_banner"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-
         app:banner_pointContainerLeftRightPadding="10dp"
         app:banner_pointTopBottomMargin="6dp"
         app:banner_pointLeftRightMargin="3dp"
