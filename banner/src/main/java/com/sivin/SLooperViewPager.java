@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ÎŞÏŞÂÖ²¥µÄViewPager
+ * æ— é™è½®æ’­çš„ViewPager
  * Created by xiwen on 2016/4/13.
  */
 public class SLooperViewPager extends ViewPager {
@@ -45,18 +45,18 @@ public class SLooperViewPager extends ViewPager {
 
     @Override
     public void setCurrentItem(int position, boolean smoothScroll) {
-        //itemµÄ±»µ÷ÓÃÕß´«µİ¹ıÀ´µÄÎ»ÖÃÊÇÃ»ÓĞÔ­Ê¼µÄÎ»ÖÃ£¬¼´ÇĞ»»Î»ÖÃÊÇ´Ó0µ½DataSize-1Ö®¼äÇĞ»»
-        //µ«ÊÇ¶ÔÓÚÍâ²ãViewPager¶øÑÔ£¬ËûĞèÒªµÄÎ»ÖÃ·¶Î§Ó¦¸ÃÊÇÓ³ÉäºóµÄÎ»ÖÃÇĞ»»£¬¼´£º³öÈ¥Á½±ßÓ³ÉäµÄÒ³Ãæ
-        //Ó¦¸ÃÊÇ´Ó1µ½Ó³ÉäºóµÄµ¹ÊıµÚ¶ş¸öÎ»ÖÃ
+        //itemçš„è¢«è°ƒç”¨è€…ä¼ é€’è¿‡æ¥çš„ä½ç½®æ˜¯æ²¡æœ‰åŸå§‹çš„ä½ç½®ï¼Œå³åˆ‡æ¢ä½ç½®æ˜¯ä»0åˆ°DataSize-1ä¹‹é—´åˆ‡æ¢
+        //ä½†æ˜¯å¯¹äºå¤–å±‚ViewPagerè€Œè¨€ï¼Œä»–éœ€è¦çš„ä½ç½®èŒƒå›´åº”è¯¥æ˜¯æ˜ å°„åçš„ä½ç½®åˆ‡æ¢ï¼Œå³ï¼šå‡ºå»ä¸¤è¾¹æ˜ å°„çš„é¡µé¢
+        //åº”è¯¥æ˜¯ä»1åˆ°æ˜ å°„åçš„å€’æ•°ç¬¬äºŒä¸ªä½ç½®
 
         super.setCurrentItem(mAdapter.toLooperPosition(position), smoothScroll);
     }
 
 
     /**
-     * Íâ²ãViewPagerÖĞµÄitemÊÇÍ¨¹ıÄÚ²ãÎ»ÖÃÓ³Éä¹ØÏµµÃµ½µÄ
+     * å¤–å±‚ViewPagerä¸­çš„itemæ˜¯é€šè¿‡å†…å±‚ä½ç½®æ˜ å°„å…³ç³»å¾—åˆ°çš„
      *
-     * @return ·µ»ØÓ³ÉäºóµÄ
+     * @return è¿”å›æ˜ å°„åçš„
      */
     @Override
     public int getCurrentItem() {
@@ -99,9 +99,9 @@ public class SLooperViewPager extends ViewPager {
 
 
     private OnPageChangeListener mOnPageChangeListener = new OnPageChangeListener() {
-        //ÉÏÒ»´ÎµÄÆ«ÒÆÁ¿
+        //ä¸Šä¸€æ¬¡çš„åç§»é‡
         private float mPreviousOffset = -1;
-        //ÉÏÒ»´ÎµÄÎ»ÖÃ
+        //ä¸Šä¸€æ¬¡çš„ä½ç½®
         private float mPreviousPosition = -1;
 
         @Override
@@ -110,12 +110,12 @@ public class SLooperViewPager extends ViewPager {
                 int innerPosition = mAdapter.getInnerAdapterPosition(position);
 
                 /*
-                    positionOffset =0:¹ö¶¯Íê³É£¬
-                    position =0 :¿ªÊ¼µÄ±ß½ç
-                    position =mAdapter.getCount()-1:½áÊøµÄ±ß½ç
+                    positionOffset =0:æ»šåŠ¨å®Œæˆï¼Œ
+                    position =0 :å¼€å§‹çš„è¾¹ç•Œ
+                    position =mAdapter.getCount()-1:ç»“æŸçš„è¾¹ç•Œ
                  */
                 if (positionOffset == 0 && mPreviousOffset == 0 && (position == 0 || position == mAdapter.getCount() - 1)) {
-                    //Ç¿ÖÆ»Øµ½Ó³ÉäÎ»ÖÃ
+                    //å¼ºåˆ¶å›åˆ°æ˜ å°„ä½ç½®
                     setCurrentItem(innerPosition, false);
                 }
                 mPreviousOffset = positionOffset;
@@ -124,12 +124,12 @@ public class SLooperViewPager extends ViewPager {
                     for (int i = 0; i < mOnPageChangeListeners.size(); i++) {
                         OnPageChangeListener listener = mOnPageChangeListeners.get(i);
                         if (listener != null) {
-                            //Èç¹ûÄÚ²ãµÄÎ»ÖÃÃ»ÓĞ´ïµ½×îºóÒ»¸ö£¬ÄÚ²ã¹ö¶¯¼àÌıÆ÷Õı³£ÉèÖÃ
+                            //å¦‚æœå†…å±‚çš„ä½ç½®æ²¡æœ‰è¾¾åˆ°æœ€åä¸€ä¸ªï¼Œå†…å±‚æ»šåŠ¨ç›‘å¬å™¨æ­£å¸¸è®¾ç½®
                             if (innerPosition != mAdapter.getInnerCount() - 1) {
                                 listener.onPageScrolled(innerPosition, positionOffset, positionOffsetPixels);
                             } else {
-                                //Èç¹ûµ½´ï×îºóÒ»¸öÎ»ÖÃ£¬µ±Æ«ÒÆÁ¿´ïµ½0.5ÒÔÉÏ£¬Õâ¸æËß¼àÌıÆ÷£¬Õâ¸öÒ³ÃæÒÑ¾­µ½´ïÄÚ²ãµÄµÚÒ»¸öÎ»ÖÃ
-                                //·ñÔò»¹ÊÇ×îºóÒ»¸öÎ»ÖÃ
+                                //å¦‚æœåˆ°è¾¾æœ€åä¸€ä¸ªä½ç½®ï¼Œå½“åç§»é‡è¾¾åˆ°0.5ä»¥ä¸Šï¼Œè¿™å‘Šè¯‰ç›‘å¬å™¨ï¼Œè¿™ä¸ªé¡µé¢å·²ç»åˆ°è¾¾å†…å±‚çš„ç¬¬ä¸€ä¸ªä½ç½®
+                                //å¦åˆ™è¿˜æ˜¯æœ€åä¸€ä¸ªä½ç½®
                                 if (positionOffset > 0.5) {
                                     listener.onPageScrolled(0, 0, 0);
                                 } else {

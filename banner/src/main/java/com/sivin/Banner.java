@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 import sivin.com.banner.R;
 
 /**
- * ¹ã¸æÂÖ²¥¿Ø¼ş
+ * å¹¿å‘Šè½®æ’­æ§ä»¶
  * Created by xiwen on 2016/4/12.
  */
 public class Banner extends RelativeLayout {
@@ -44,43 +44,43 @@ public class Banner extends RelativeLayout {
     private SparseArray<ImageView> mItemArrays;
 
     /**
-     * ²¼¾Ö²ÎÊı
+     * å¸ƒå±€å‚æ•°
      */
     private static final int RMP = LayoutParams.MATCH_PARENT;
     private static final int RWC = LayoutParams.WRAP_CONTENT;
     private static final int LWC = LinearLayout.LayoutParams.WRAP_CONTENT;
     /**
-     * Ñ­»·ÂÖ²¥µÄViewpager
+     * å¾ªç¯è½®æ’­çš„Viewpager
      */
     private SLooperViewPager mViewPager;
 
 
-    //ÏÂÃæÕâÁ½¸ö¿Ø¼ş£¬´æ·Åµ½Ò»¸öÏà¶Ô²¼¾ÖÖĞ£¬ÓÉÓÚ²»ĞèÒªÉèÖÃ³ÉÔ±±äÁ¿£¬¹Ê´ËÃ»Ğ´
+    //ä¸‹é¢è¿™ä¸¤ä¸ªæ§ä»¶ï¼Œå­˜æ”¾åˆ°ä¸€ä¸ªç›¸å¯¹å¸ƒå±€ä¸­ï¼Œç”±äºä¸éœ€è¦è®¾ç½®æˆå‘˜å˜é‡ï¼Œæ•…æ­¤æ²¡å†™
     /**
-     * ÂÖ²¥¿Ø¼şµÄÌáÊ¾ÎÄ×Ö
+     * è½®æ’­æ§ä»¶çš„æç¤ºæ–‡å­—
      */
     private TextView mTipTextView;
     /**
-     * ÌáÊ¾ÎÄ×ÖµÄ´óĞ¡
+     * æç¤ºæ–‡å­—çš„å¤§å°
      */
     private int mTipTextSize;
 
     /**
-     * ÌáÊ¾ÎÄ×ÖµÄÑÕÉ«£¬Ä¬ÈÏÊÇ°×É«
+     * æç¤ºæ–‡å­—çš„é¢œè‰²ï¼Œé»˜è®¤æ˜¯ç™½è‰²
      */
     private int mTipTextColor = Color.WHITE;
 
     /**
-     * ´æ·ÅµãµÄÈİÆ÷
+     * å­˜æ”¾ç‚¹çš„å®¹å™¨
      */
     private LinearLayout mPointContainerLl;
     /**
-     * µãµÄdrawable×ÊÔ´id
+     * ç‚¹çš„drawableèµ„æºid
      */
     private int mPointDrawableResId = R.drawable.selector_banner_point;
 
     /**
-     * µãÔÚÈİÆ÷ÖĞµÄlayoutµÄÊôĞÔ
+     * ç‚¹åœ¨å®¹å™¨ä¸­çš„layoutçš„å±æ€§
      */
     private int mPointGravity = Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM;
     private int mPointLeftRightMargin;
@@ -88,47 +88,47 @@ public class Banner extends RelativeLayout {
     private int mPointContainerLeftRightPadding;
 
     /**
-     * ´æ·ÅTipTextViewºÍmPointContainerLlµÄÏà¶Ô²¼¾ÖµÄ±³¾°×ÊÔ´Id£»
+     * å­˜æ”¾TipTextViewå’ŒmPointContainerLlçš„ç›¸å¯¹å¸ƒå±€çš„èƒŒæ™¯èµ„æºIdï¼›
      */
     private Drawable mPointContainerBackgroundDrawable;
 
     /**
-     * ´æ·ÅÂÖ²¥ĞÅÏ¢µÄÊı¾İ¼¯ºÏ
+     * å­˜æ”¾è½®æ’­ä¿¡æ¯çš„æ•°æ®é›†åˆ
      */
     protected List mData = new ArrayList<>();
 
     /**
-     * ×Ô¶¯²¥·ÅµÄ¼ä¸ô
+     * è‡ªåŠ¨æ’­æ”¾çš„é—´éš”
      */
     private int mAutoPlayInterval = 3;
 
     /**
-     * Ò³ÃæÇĞ»»µÄÊ±¼ä£¨´ÓÏÂÒ»Ò³¿ªÊ¼³öÏÖ£¬µ½ÍêÈ«³öÏÖµÄÊ±¼ä£©
+     * é¡µé¢åˆ‡æ¢çš„æ—¶é—´ï¼ˆä»ä¸‹ä¸€é¡µå¼€å§‹å‡ºç°ï¼Œåˆ°å®Œå…¨å‡ºç°çš„æ—¶é—´ï¼‰
      */
     private int mPageChangeDuration = 800;
     /**
-     * ÊÇ·ñÕıÔÚ²¥·Å
+     * æ˜¯å¦æ­£åœ¨æ’­æ”¾
      */
     private boolean mPlaying = false;
 
     /**
-     * µ±Ç°µÄÒ³ÃæµÄÎ»ÖÃ
+     * å½“å‰çš„é¡µé¢çš„ä½ç½®
      */
     protected int currentPosition;
 
     /**
-     * Banner¿Ø¼şµÄÊÊÅäÆ÷
+     * Banneræ§ä»¶çš„é€‚é…å™¨
      */
     private BannerAdapter mBannerAdapter;
 
     /**
-     * ÈÎÎñÖ´ĞĞÆ÷
+     * ä»»åŠ¡æ‰§è¡Œå™¨
      */
     protected ScheduledExecutorService mExecutor;
 
 
     /**
-     * ²¥·ÅÏÂÒ»¸öÖ´ĞĞÆ÷
+     * æ’­æ”¾ä¸‹ä¸€ä¸ªæ‰§è¡Œå™¨
      */
     private Handler mPlayHandler = new PlayHandler(this);
 
@@ -144,27 +144,27 @@ public class Banner extends RelativeLayout {
     public Banner(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        //³õÊ¼»¯Ä¬ÈÏÊôĞÔ
+        //åˆå§‹åŒ–é»˜è®¤å±æ€§
         initDefaultAttrs(context);
 
-        //³õÊ¼»¯×Ô¶¨ÒåÊôĞÔ
+        //åˆå§‹åŒ–è‡ªå®šä¹‰å±æ€§
         initCustomAttrs(context, attrs);
 
-        //¿Ø¼ş³õÊ¼»¯
+        //æ§ä»¶åˆå§‹åŒ–
         initView(context);
     }
 
     private void initDefaultAttrs(Context context) {
 
-        //Ä¬ÈÏµãÖ¸Ê¾Æ÷µÄ×óÓÒMargin3dp
+        //é»˜è®¤ç‚¹æŒ‡ç¤ºå™¨çš„å·¦å³Margin3dp
         mPointLeftRightMargin = dp2px(context, 3);
-        //Ä¬ÈÏµãÖ¸Ê¾Æ÷µÄÉÏÏÂmarginÎª6dp
+        //é»˜è®¤ç‚¹æŒ‡ç¤ºå™¨çš„ä¸Šä¸‹marginä¸º6dp
         mPointTopBottomMargin = dp2px(context, 6);
-        //Ä¬ÈÏµãÈİÆ÷µÄ×óÓÒpaddingÎª10dp
+        //é»˜è®¤ç‚¹å®¹å™¨çš„å·¦å³paddingä¸º10dp
         mPointContainerLeftRightPadding = dp2px(context, 10);
-        //Ä¬ÈÏÖ¸Ê¾Æ÷ÌáÊ¾ÎÄ×Ö´óĞ¡8sp
+        //é»˜è®¤æŒ‡ç¤ºå™¨æç¤ºæ–‡å­—å¤§å°8sp
         mTipTextSize = sp2px(context, 8);
-        //Ä¬ÈÏÖ¸Ê¾Æ÷ÈİÆ÷µÄ±³¾°Í¼Æ¬
+        //é»˜è®¤æŒ‡ç¤ºå™¨å®¹å™¨çš„èƒŒæ™¯å›¾ç‰‡
         mPointContainerBackgroundDrawable = new ColorDrawable(Color.parseColor("#33aaaaaa"));
     }
 
@@ -177,7 +177,7 @@ public class Banner extends RelativeLayout {
     }
 
     /**
-     * ³õÊ¼»¯×Ô¶¨ÒåÊôĞÔ
+     * åˆå§‹åŒ–è‡ªå®šä¹‰å±æ€§
      *
      * @param context context
      * @param attrs   attrs
@@ -193,43 +193,43 @@ public class Banner extends RelativeLayout {
 
     private void initCustomAttr(int attr, TypedArray typedArray) {
         if (attr == R.styleable.SivinBanner_banner_pointDrawable) {
-            //Ö¸Ê¾Æ÷µãµÄÑùÊ½×ÊÔ´id
+            //æŒ‡ç¤ºå™¨ç‚¹çš„æ ·å¼èµ„æºid
             mPointDrawableResId = typedArray.getResourceId(attr, R.drawable.selector_banner_point);
         } else if (attr == R.styleable.SivinBanner_banner_pointContainerBackground) {
-            //Ö¸Ê¾Æ÷ÈİÆ÷±³¾°ÑùÊ½
+            //æŒ‡ç¤ºå™¨å®¹å™¨èƒŒæ™¯æ ·å¼
             mPointContainerBackgroundDrawable = typedArray.getDrawable(attr);
 
         } else if (attr == R.styleable.SivinBanner_banner_pointLeftRightMargin) {
-            //Ö¸Ê¾Æ÷×óÓÒ±ß¾à
+            //æŒ‡ç¤ºå™¨å·¦å³è¾¹è·
             mPointLeftRightMargin = typedArray.getDimensionPixelSize(attr, mPointLeftRightMargin);
         } else if (attr == R.styleable.SivinBanner_banner_pointContainerLeftRightPadding) {
-            //Ö¸Ê¾Æ÷ÈİÆ÷µÄ×óÓÒpadding
+            //æŒ‡ç¤ºå™¨å®¹å™¨çš„å·¦å³padding
             mPointContainerLeftRightPadding = typedArray.getDimensionPixelSize(attr, mPointContainerLeftRightPadding);
         } else if (attr == R.styleable.SivinBanner_banner_pointTopBottomMargin) {
 
-            //Ö¸Ê¾Æ÷µÄÉÏÏÂmargin
+            //æŒ‡ç¤ºå™¨çš„ä¸Šä¸‹margin
             mPointTopBottomMargin = typedArray.getDimensionPixelSize(attr, mPointTopBottomMargin);
         } else if (attr == R.styleable.SivinBanner_banner_pointGravity) {
-            //Ö¸Ê¾Æ÷ÔÚÈİÆ÷ÖĞµÄÎ»ÖÃÊôĞÔ
+            //æŒ‡ç¤ºå™¨åœ¨å®¹å™¨ä¸­çš„ä½ç½®å±æ€§
             mPointGravity = typedArray.getInt(attr, mPointGravity);
         } else if (attr == R.styleable.SivinBanner_banner_pointAutoPlayInterval) {
-            //ÂÖ²¥µÄ¼ä¸ô
+            //è½®æ’­çš„é—´éš”
             mAutoPlayInterval = typedArray.getInteger(attr, mAutoPlayInterval);
         } else if (attr == R.styleable.SivinBanner_banner_pageChangeDuration) {
-            //Ò³ÃæÇĞ»»µÄ³ÖĞøÊ±¼ä
+            //é¡µé¢åˆ‡æ¢çš„æŒç»­æ—¶é—´
             mPageChangeDuration = typedArray.getInteger(attr, mPageChangeDuration);
         } else if (attr == R.styleable.SivinBanner_banner_tipTextColor) {
-            //ÌáÊ¾ÎÄ×ÖÑÕÉ«
+            //æç¤ºæ–‡å­—é¢œè‰²
             mTipTextColor = typedArray.getColor(attr, mTipTextColor);
         } else if (attr == R.styleable.SivinBanner_banner_tipTextSize) {
-            //ÌáÊ¾ÎÄ×Ö´óĞ¡
+            //æç¤ºæ–‡å­—å¤§å°
             mTipTextSize = typedArray.getDimensionPixelSize(attr, mTipTextSize);
         }
 
     }
 
     /**
-     * ¿Ø¼ş³õÊ¼»¯
+     * æ§ä»¶åˆå§‹åŒ–
      *
      * @param context context
      */
@@ -238,51 +238,51 @@ public class Banner extends RelativeLayout {
 
         mItemArrays = new SparseArray<>();
 
-        //³õÊ¼»¯ViewPager
+        //åˆå§‹åŒ–ViewPager
         mViewPager = new SLooperViewPager(context);
 
-        //ÒÔmatchParentµÄ·½Ê½½«viewPagerÌî³äµ½¿Ø¼şÈİÆ÷ÖĞ
+        //ä»¥matchParentçš„æ–¹å¼å°†viewPagerå¡«å……åˆ°æ§ä»¶å®¹å™¨ä¸­
         addView(mViewPager, new LayoutParams(RMP, RMP));
 
-        //ÉèÖÃÒ³ÃæÇĞ»»µÄ³ÖĞøÊ±¼ä
+        //è®¾ç½®é¡µé¢åˆ‡æ¢çš„æŒç»­æ—¶é—´
         setPageChangeDuration(mPageChangeDuration);
 
 
-        //´´½¨Ö¸Ê¾Æ÷ÈİÆ÷µÄÏà¶Ô²¼¾Ö
+        //åˆ›å»ºæŒ‡ç¤ºå™¨å®¹å™¨çš„ç›¸å¯¹å¸ƒå±€
         RelativeLayout indicatorContainerRl = new RelativeLayout(context);
-        //ÉèÖÃÖ¸Ê¾Æ÷ÈİÆ÷µÄ±³¾°
+        //è®¾ç½®æŒ‡ç¤ºå™¨å®¹å™¨çš„èƒŒæ™¯
         if (Build.VERSION.SDK_INT >= 16) {
             indicatorContainerRl.setBackground(mPointContainerBackgroundDrawable);
         } else {
             indicatorContainerRl.setBackgroundDrawable(mPointContainerBackgroundDrawable);
         }
-        //ÉèÖÃÖ¸Ê¾Æ÷ÈİÆ÷Padding
+        //è®¾ç½®æŒ‡ç¤ºå™¨å®¹å™¨Padding
         indicatorContainerRl.setPadding(mPointContainerLeftRightPadding, 0, mPointContainerLeftRightPadding, 0);
-        //³õÊ¼»¯Ö¸Ê¾Æ÷ÈİÆ÷µÄ²¼¾Ö²ÎÊı
+        //åˆå§‹åŒ–æŒ‡ç¤ºå™¨å®¹å™¨çš„å¸ƒå±€å‚æ•°
         LayoutParams indicatorContainerLp = new LayoutParams(RMP, RWC);
-        // ÉèÖÃÖ¸Ê¾Æ÷ÈİÆ÷ÄÚµÄ×ÓviewµÄ²¼¾Ö·½Ê½
+        // è®¾ç½®æŒ‡ç¤ºå™¨å®¹å™¨å†…çš„å­viewçš„å¸ƒå±€æ–¹å¼
         if ((mPointGravity & Gravity.VERTICAL_GRAVITY_MASK) == Gravity.TOP) {
             indicatorContainerLp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
         } else {
             indicatorContainerLp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
         }
-        //½«Ö¸Ê¾Æ÷ÈİÆ÷Ìí¼Óµ½¸¸ViewÖĞ
+        //å°†æŒ‡ç¤ºå™¨å®¹å™¨æ·»åŠ åˆ°çˆ¶Viewä¸­
         addView(indicatorContainerRl, indicatorContainerLp);
 
 
-        //³õÊ¼»¯´æ·ÅµãµÄÈİÆ÷ÏßĞÔ²¼¾Ö
+        //åˆå§‹åŒ–å­˜æ”¾ç‚¹çš„å®¹å™¨çº¿æ€§å¸ƒå±€
         mPointContainerLl = new LinearLayout(context);
-        //ÉèÖÃµãÈİÆ÷²¼¾ÖµÄid
+        //è®¾ç½®ç‚¹å®¹å™¨å¸ƒå±€çš„id
         mPointContainerLl.setId(R.id.banner_pointContainerId);
-        //ÉèÖÃÏßĞÔ²¼¾ÖµÄ·½Ïò
+        //è®¾ç½®çº¿æ€§å¸ƒå±€çš„æ–¹å‘
         mPointContainerLl.setOrientation(LinearLayout.HORIZONTAL);
-        //ÉèÖÃµãÈİÆ÷µÄ²¼¾Ö²ÎÊı
+        //è®¾ç½®ç‚¹å®¹å™¨çš„å¸ƒå±€å‚æ•°
         LayoutParams pointContainerLp = new LayoutParams(RWC, RWC);
-        //½«µãÈİÆ÷´æ·Åµ½Ö¸Ê¾Æ÷ÈİÆ÷ÖĞ
+        //å°†ç‚¹å®¹å™¨å­˜æ”¾åˆ°æŒ‡ç¤ºå™¨å®¹å™¨ä¸­
         indicatorContainerRl.addView(mPointContainerLl, pointContainerLp);
 
 
-        //³õÊ¼»¯tipµÄlayout³ß´ç²ÎÊı£¬¸ß¶ÈºÍµãµÄ¸ß¶ÈÒ»ÖÂ
+        //åˆå§‹åŒ–tipçš„layoutå°ºå¯¸å‚æ•°ï¼Œé«˜åº¦å’Œç‚¹çš„é«˜åº¦ä¸€è‡´
         LayoutParams tipLp = new LayoutParams(RMP, getResources().getDrawable(mPointDrawableResId).getIntrinsicHeight() + 2 * mPointTopBottomMargin);
         mTipTextView = new TextView(context);
         mTipTextView.setGravity(Gravity.CENTER_VERTICAL);
@@ -290,13 +290,13 @@ public class Banner extends RelativeLayout {
         mTipTextView.setEllipsize(TextUtils.TruncateAt.END);
         mTipTextView.setTextColor(mTipTextColor);
         mTipTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mTipTextSize);
-        //½«TieTextView´æ·ÅÓÚÖ¸Ê¾Æ÷ÈİÆ÷ÖĞ
+        //å°†TieTextViewå­˜æ”¾äºæŒ‡ç¤ºå™¨å®¹å™¨ä¸­
         indicatorContainerRl.addView(mTipTextView, tipLp);
         int horizontalGravity = mPointGravity & Gravity.HORIZONTAL_GRAVITY_MASK;
-        // ´¦ÀíÔ²µãÈİÆ÷Î»ÓÚÖ¸Ê¾Æ÷ÈİÆ÷µÄ×ó±ß¡¢ÓÒ±ß»¹ÊÇË®Æ½¾ÓÖĞ
+        // å¤„ç†åœ†ç‚¹å®¹å™¨ä½äºæŒ‡ç¤ºå™¨å®¹å™¨çš„å·¦è¾¹ã€å³è¾¹è¿˜æ˜¯æ°´å¹³å±…ä¸­
         if (horizontalGravity == Gravity.LEFT) {
             pointContainerLp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-            //ÌáÊ¾ÎÄ×ÖÉèÖÃÔÚµãÈİÆ÷µÄÓÒ±ß
+            //æç¤ºæ–‡å­—è®¾ç½®åœ¨ç‚¹å®¹å™¨çš„å³è¾¹
             tipLp.addRule(RelativeLayout.RIGHT_OF, R.id.banner_pointContainerId);
             mTipTextView.setGravity(Gravity.CENTER_VERTICAL | Gravity.RIGHT);
         } else if (horizontalGravity == Gravity.RIGHT) {
@@ -310,15 +310,15 @@ public class Banner extends RelativeLayout {
 
 
     /**
-     * ³õÊ¼»¯µã
-     * ÕâÑùµÄ×ö·¨£¬¿ÉÒÔÊ¹ÔÚË¢ĞÂ»ñÊı¾İµÄÊ±ºòÌáÉıĞÔÄÜ
+     * åˆå§‹åŒ–ç‚¹
+     * è¿™æ ·çš„åšæ³•ï¼Œå¯ä»¥ä½¿åœ¨åˆ·æ–°è·æ•°æ®çš„æ—¶å€™æå‡æ€§èƒ½
      */
     private void initPoints() {
-        //»ñÈ¡ÈİÆ÷ÖĞÔ­ÓĞµãµÄÊıÁ¿
+        //è·å–å®¹å™¨ä¸­åŸæœ‰ç‚¹çš„æ•°é‡
         int childCount = mPointContainerLl.getChildCount();
-        //»ñÈ¡Ä¿±êµãµÄÊı¾İÁ¿
+        //è·å–ç›®æ ‡ç‚¹çš„æ•°æ®é‡
         int dataSize = mData.size();
-        //»ñÈ¡Ôö¼Ó»ñÈ¡É¾¼õµãµÄÊıÁ¿
+        //è·å–å¢åŠ è·å–åˆ å‡ç‚¹çš„æ•°é‡
         int offset = dataSize - childCount;
         if (offset == 0)
             return;
@@ -363,10 +363,10 @@ public class Banner extends RelativeLayout {
     }
 
     /**
-     * ½«µãÇĞ»»µ½Ö¸¶¨µÄÎ»ÖÃ
-     * ¾ÍÊÇ½«Ö¸¶¨Î»ÖÃµÄµãÉèÖÃ³ÉEnable
+     * å°†ç‚¹åˆ‡æ¢åˆ°æŒ‡å®šçš„ä½ç½®
+     * å°±æ˜¯å°†æŒ‡å®šä½ç½®çš„ç‚¹è®¾ç½®æˆEnable
      *
-     * @param newCurrentPoint ĞÂÎ»ÖÃ
+     * @param newCurrentPoint æ–°ä½ç½®
      */
     private void switchToPoint(int newCurrentPoint) {
         for (int i = 0; i < mPointContainerLl.getChildCount(); i++) {
@@ -399,16 +399,16 @@ public class Banner extends RelativeLayout {
 
 
     /**
-     * ÉèÖÃÒ³ÂëÇĞ»»¹ı³ÌµÄÊ±¼ä³¤¶È
+     * è®¾ç½®é¡µç åˆ‡æ¢è¿‡ç¨‹çš„æ—¶é—´é•¿åº¦
      *
-     * @param duration Ò³ÂëÇĞ»»¹ı³ÌµÄÊ±¼ä³¤¶È
+     * @param duration é¡µç åˆ‡æ¢è¿‡ç¨‹çš„æ—¶é—´é•¿åº¦
      */
     public void setPageChangeDuration(int duration) {
         mPageChangeDuration = duration;
     }
 
     /**
-     * ¹ö¶¯µ½ÏÂÒ»¸öÌõÄ¿
+     * æ»šåŠ¨åˆ°ä¸‹ä¸€ä¸ªæ¡ç›®
      *
      * @param position
      */
@@ -419,7 +419,7 @@ public class Banner extends RelativeLayout {
 
 
     /**
-     * viewPagerµÄÊÊÅäÆ÷
+     * viewPagerçš„é€‚é…å™¨
      */
     private final class InnerPagerAdapter extends PagerAdapter {
 
@@ -463,7 +463,7 @@ public class Banner extends RelativeLayout {
     }
 
     /**
-     * ´´½¨itemView
+     * åˆ›å»ºitemView
      *
      * @param position
      * @return
@@ -481,7 +481,7 @@ public class Banner extends RelativeLayout {
     private OnBannerItemClickListener onVpItemClickListener;
 
     /**
-     * ÉèÖÃviewPageµÄItemµã»÷¼àÌıÆ÷
+     * è®¾ç½®viewPageçš„Itemç‚¹å‡»ç›‘å¬å™¨
      *
      * @param listener
      */
@@ -495,8 +495,8 @@ public class Banner extends RelativeLayout {
 
 
     /**
-     * ·½·¨Ê¹ÓÃ×´Ì¬ £ºviewpager´¦ÓÚÔİÍ£µÄ×´Ì¬
-     * ¿ªÊ¼¹ö¶¯
+     * æ–¹æ³•ä½¿ç”¨çŠ¶æ€ ï¼šviewpagerå¤„äºæš‚åœçš„çŠ¶æ€
+     * å¼€å§‹æ»šåŠ¨
      */
     private void goScroll() {
         if (!isValid()) {
@@ -507,10 +507,10 @@ public class Banner extends RelativeLayout {
         } else {
             pauseScroll();
             mExecutor = Executors.newSingleThreadScheduledExecutor();
-            //command£ºÖ´ĞĞÏß³Ì
-            //initialDelay£º³õÊ¼»¯ÑÓÊ±
-            //period£ºÁ½´Î¿ªÊ¼Ö´ĞĞ×îĞ¡¼ä¸ôÊ±¼ä
-            //unit£º¼ÆÊ±µ¥Î»
+            //commandï¼šæ‰§è¡Œçº¿ç¨‹
+            //initialDelayï¼šåˆå§‹åŒ–å»¶æ—¶
+            //periodï¼šä¸¤æ¬¡å¼€å§‹æ‰§è¡Œæœ€å°é—´éš”æ—¶é—´
+            //unitï¼šè®¡æ—¶å•ä½
             mExecutor.scheduleAtFixedRate(new Runnable() {
                 @Override
                 public void run() {
@@ -523,7 +523,7 @@ public class Banner extends RelativeLayout {
 
 
     /**
-     * ÔİÍ£¹ö¶¯
+     * æš‚åœæ»šåŠ¨
      */
     public void pauseScroll() {
         if (mExecutor != null) {
@@ -550,7 +550,7 @@ public class Banner extends RelativeLayout {
     }
 
     /**
-     * ÅĞ¶Ï¿Ø¼şÊÇ·ñ¿ÉÓÃ
+     * åˆ¤æ–­æ§ä»¶æ˜¯å¦å¯ç”¨
      *
      * @return
      */
@@ -567,7 +567,7 @@ public class Banner extends RelativeLayout {
     }
 
     /**
-     * ÉèÖÃÊı¾İµÄ¼¯ºÏ
+     * è®¾ç½®æ•°æ®çš„é›†åˆ
      */
     private void setSource() {
         List list = mBannerAdapter.getDatas();
@@ -580,7 +580,7 @@ public class Banner extends RelativeLayout {
     }
 
     /**
-     * ¸øviewpagerÉèÖÃÊÊÅäÆ÷
+     * ç»™viewpagerè®¾ç½®é€‚é…å™¨
      */
     private void setAdapter() {
         mViewPager.setAdapter(new InnerPagerAdapter());
@@ -594,7 +594,7 @@ public class Banner extends RelativeLayout {
 
 
     /**
-     * Í¨ÖªÊı¾İÒÑ¾­·ÅÉú¸Ä±ä
+     * é€šçŸ¥æ•°æ®å·²ç»æ”¾ç”Ÿæ”¹å˜
      */
     public void notifiDataHasChanged() {
         initPoints();
@@ -606,7 +606,7 @@ public class Banner extends RelativeLayout {
 
 
     /**
-     * ¾²Ì¬ÄÚ²¿Àà£¬·ÀÖ¹·¢ÉúÄÚ´æĞ¹Â¶
+     * é™æ€å†…éƒ¨ç±»ï¼Œé˜²æ­¢å‘ç”Ÿå†…å­˜æ³„éœ²
      */
     static class PlayHandler extends Handler {
         WeakReference<Banner> mWeakBanner;
