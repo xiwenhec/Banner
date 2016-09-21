@@ -40,7 +40,7 @@ ext {
     artifact = 'banner'
     libraryVersion = '1.0.1'
 
-    libraryDescription = 'The gradient ui that View can change from one background to another background. (Such as the background of ImageView, the color of TextView)'
+    libraryDescription = 'The AD view for android that can show some infromation by text and image and can play timing. '
 
     siteUrl = 'https://github.com/xiwenhec/Banner'
     gitUrl = 'git@github.com:xiwenhec/Banner.git'
