@@ -244,8 +244,15 @@ public class Banner extends RelativeLayout {
         //以matchParent的方式将viewPager填充到控件容器中
         addView(mViewPager, new LayoutParams(RMP, RMP));
 
-        //设置页面切换的持续时间
-        setPageChangeDuration(mPageChangeDuration);
+        //修正banner页面切换时间
+        mPageChangeDuration =  mPageChangeDuration>(mAutoPlayInterval*1000)?(mAutoPlayInterval*1000):mPageChangeDuration;
+
+        // 设置banner轮播的切换时间
+        ViewPagerScroller pagerScroller = new ViewPagerScroller(mContext);
+        pagerScroller.changScrollDuration(mViewPager,mPageChangeDuration);
+
+
+
 
 
         //创建指示器容器的相对布局
