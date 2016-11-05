@@ -23,7 +23,7 @@
         app:banner_pointContainerBackground="#33000000"
         app:banner_pointDrawable="@drawable/selector_banner_point"
         app:banner_pointAutoPlayInterval="3"
-        app:banner_pageChangeDuration="800"
+        app:banner_pageChangeDuration="300"
         app:banner_tipTextColor="#FFFFFF"
         app:banner_tipTextSize="12sp"
         />

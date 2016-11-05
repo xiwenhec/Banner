@@ -105,7 +105,7 @@ public class Banner extends RelativeLayout {
     /**
      * 页面切换的时间（从下一页开始出现，到完全出现的时间）
      */
-    private int mPageChangeDuration = 800;
+    private int mPageChangeDuration = 300;
     /**
      * 是否正在播放
      */
@@ -437,6 +437,8 @@ public class Banner extends RelativeLayout {
 
         @Override
         public Object instantiateItem(ViewGroup container, final int position) {
+            Log.d(TAG, "instantiateItem: "+position);
+            
             ImageView view = createItemView(position);
             mBannerAdapter.setImageViewSource(view, position);
             view.setOnClickListener(new OnClickListener() {
