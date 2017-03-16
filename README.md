@@ -2,12 +2,12 @@
 
 首先在gradle文件中添加
     
-     compile 'com.xiwenhec:banner:1.0.2'
+     compile 'com.xiwenhec:banner:1.0.3'
 
 在此我模仿`listView`的实现习惯，增加了一个适配器，调用者只需要这样一下几步就可以完成:
 第一步：在xml代码写入控件
 ```xml
-<com.sivin.Banner 
+   <com.sivin.Banner 
         android:id="@+id/id_banner"
         android:layout_width="match_parent"
         android:layout_height="180dp"
@@ -43,13 +43,13 @@
 ```
 　　最后一步：告诉banner数据不部署完成，为什么这样做呢，正常情况下，我们的数据都是从网络上异步加载的，一般的情况下会以集合的形式传递过来，当我们在完成网络加载的时候，改变了`mDatas`数据，然后调用`mBanner.notifiDataHasChanged();`通知`banner`就行了，使用起来和`listview`的习惯是不是很相似呢，对就是这样
 ```java
- mBanner.notifiDataHasChanged();
+ mBanner.notifyDataHasChanged();
 ```
 
 为了更加优美的控制`banner`控件，这里提供了很多可控制的属性，我们可以这样做：
 
 ```xml
-<com.sivin.Banner
+    <com.sivin.Banner
         android:id="@+id/id_banner"
         android:layout_width="match_parent"
         android:layout_height="180dp"

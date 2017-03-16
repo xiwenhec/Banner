@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         mRefreshButton = (Button) findViewById(R.id.button);
 
 
+
+
         mRefreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         model.setImageUrl("https://gw.alicdn.com/tps/i2/TB1ku8oMFXXXXciXpXXdIns_XXX-1125-352.jpg_q50.jpg");
         model.setTips("这是页面5");
         mDatas.add(model);
-        mBanner.notifiDataHasChanged();
+        mBanner.notifyDataHasChanged();
     }
 
     private void getData2() {
@@ -136,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         model.setImageUrl("https://gw.alicdn.com/tps/i2/TB1ku8oMFXXXXciXpXXdIns_XXX-1125-352.jpg_q50.jpg");
         model.setTips("这是页面3");
 //        mDatas.add(model);
-        mBanner.notifiDataHasChanged();
+        mBanner.notifyDataHasChanged();
     }
 
 }
