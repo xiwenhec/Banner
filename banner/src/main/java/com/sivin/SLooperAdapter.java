@@ -6,14 +6,13 @@ import android.view.ViewGroup;
 
 /**
  * 无限轮播的viewPager适配器
- * Created by xiwen on 2016/4/13.
+ * Created by sivin on 2016/4/13.
  */
-public class SLooperAdapter extends PagerAdapter {
+class SLooperAdapter extends PagerAdapter {
     private PagerAdapter mAdapter;
 
-    private int mItemCount = 0;
 
-    public SLooperAdapter(PagerAdapter adapter) {
+    SLooperAdapter(PagerAdapter adapter) {
         mAdapter = adapter;
     }
 
@@ -60,7 +59,6 @@ public class SLooperAdapter extends PagerAdapter {
 
     @Override
     public void notifyDataSetChanged() {
-        mItemCount = getCount();
         super.notifyDataSetChanged();
     }
 
@@ -75,7 +73,7 @@ public class SLooperAdapter extends PagerAdapter {
      * @param position 外层ViewPager的position
      * @return 外层viewPager当前数据位置对应的内层viewPager对应的位置。
      */
-    public int getInnerAdapterPosition(int position) {
+    int getInnerAdapterPosition(int position) {
         //viewPager真正的可用的个数
         int realCount = getInnerCount();
         //内层没有可用的Item则换回为零
@@ -90,17 +88,16 @@ public class SLooperAdapter extends PagerAdapter {
     /**
      * @return 内层ViewPager中可用的item个数
      */
-    public int getInnerCount() {
+    int getInnerCount() {
         return mAdapter.getCount();
     }
 
     /**
-     * 根据内层postion的位置，返回映射后外层position的位置
-     *
+     * 根据内层position的位置，返回映射后外层position的位置
      * @param position 内层position的位置
      * @return 无限轮播ViewPager的切换位置
      */
-    public int toLooperPosition(int position) {
+    int toLooperPosition(int position) {
         if (getInnerCount() > 1) {
             return position + 1;
         } else return position;

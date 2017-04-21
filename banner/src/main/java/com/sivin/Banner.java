@@ -340,6 +340,7 @@ public class Banner extends RelativeLayout {
                 imageView.setEnabled(false);
                 mPointContainerLl.addView(imageView);
             }
+            mPointContainerLl.getChildAt(0).setEnabled(true);
             return;
         }
         if (offset < 0) {
@@ -372,7 +373,6 @@ public class Banner extends RelativeLayout {
     /**
      * 将点切换到指定的位置
      * 就是将指定位置的点设置成Enable
-     *
      * @param newCurrentPoint 新位置
      */
     private void switchToPoint(int newCurrentPoint) {
@@ -406,18 +406,17 @@ public class Banner extends RelativeLayout {
 
 
     /**
-     * 设置页码切换过程的时间长度
-     *
-     * @param duration 页码切换过程的时间长度
+     * set viewPage change time
+     * @param duration time
      */
+    @SuppressWarnings("unused")
     public void setPageChangeDuration(int duration) {
         mPageChangeDuration = duration;
     }
 
     /**
-     * 滚动到下一个条目
-     *
-     * @param position
+     * goScroll next
+     * @param position position
      */
     private void scrollToNextItem(int position) {
         position++;
@@ -426,7 +425,7 @@ public class Banner extends RelativeLayout {
 
 
     /**
-     * viewPager的适配器
+     * viewPager inner adapter
      */
     private final class InnerPagerAdapter extends PagerAdapter {
 
@@ -470,10 +469,9 @@ public class Banner extends RelativeLayout {
     }
 
     /**
-     * 创建itemView
-     *
-     * @param position
-     * @return
+     * create itemView
+     * @param position position
+     * @return imageView
      */
     private ImageView createItemView(int position) {
         ImageView iv = mItemArrays.get(position);
@@ -485,7 +483,7 @@ public class Banner extends RelativeLayout {
             }
         }
         return iv;
-    };
+    }
 
 
     private OnBannerItemClickListener onVpItemClickListener;
@@ -493,7 +491,7 @@ public class Banner extends RelativeLayout {
     /**
      * 设置viewPage的Item点击监听器
      *
-     * @param listener
+     * @param listener listener
      */
     public void setOnBannerItemClickListener(OnBannerItemClickListener listener) {
         this.onVpItemClickListener = listener;
@@ -580,7 +578,7 @@ public class Banner extends RelativeLayout {
      * 设置数据的集合
      */
     private void setSource() {
-        List list = mBannerAdapter.getDatas();
+        List list = mBannerAdapter.getDataList();
         if (list == null) {
             Log.d(TAG, "setSource: list==null");
             return;

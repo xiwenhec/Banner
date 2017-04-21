@@ -28,6 +28,6 @@ dependencies {
     compile 'com.squareup.okio:okio:1.7.0'
 
     compile files('libs/okhttputils-2_3_9.jar')
-    //compile project(':banner')
-    compile 'com.xiwenhec:banner:1.0.3'
+    compile project(':banner')
+//    compile 'com.xiwenhec:banner:1.0.3'
 }

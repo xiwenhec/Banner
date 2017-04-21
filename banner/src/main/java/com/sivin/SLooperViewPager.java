@@ -22,7 +22,7 @@ public class SLooperViewPager extends ViewPager {
 
     public SLooperViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        init();
     }
 
 
@@ -89,7 +89,7 @@ public class SLooperViewPager extends ViewPager {
     }
 
 
-    private void init(Context context) {
+    private void init() {
         if (mOnPageChangeListener != null) {
             super.removeOnPageChangeListener(mOnPageChangeListener);
         }

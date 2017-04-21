@@ -16,11 +16,11 @@ import java.lang.reflect.Field;
  * Description :重写viewpager滚动时间
  */
 
-public class ViewPagerScroller extends Scroller {
+class ViewPagerScroller extends Scroller {
 
     private int mPagerChangeDuration = 800;
 
-    public ViewPagerScroller(Context context) {
+    ViewPagerScroller(Context context) {
         super(context);
     }
 
@@ -43,7 +43,7 @@ public class ViewPagerScroller extends Scroller {
         super.startScroll(startX, startY, dx, dy, mPagerChangeDuration);
     }
 
-    public void changScrollDuration (ViewPager viewPager,int duration) {
+    void changScrollDuration(ViewPager viewPager, int duration) {
         mPagerChangeDuration = duration;
 
         try {

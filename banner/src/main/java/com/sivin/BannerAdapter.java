@@ -6,26 +6,27 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
+ * bannerAdapter
  * Created by sivin on 2016/5/1.
  */
 public abstract class BannerAdapter<T> {
-    private List<T> mDatas;
+    private List<T> mDataList;
 
-    public List<T> getDatas() {
-        return mDatas;
+    List<T> getDataList() {
+        return mDataList;
     }
 
-    public BannerAdapter(List<T> datas) {
-        mDatas = datas;
+    protected BannerAdapter(List<T> dataList) {
+        mDataList = dataList;
     }
 
-    public void setImageViewSource(ImageView imageView,int position) {
-        bindImage(imageView, mDatas.get(position));
+    void setImageViewSource(ImageView imageView, int position) {
+        bindImage(imageView, mDataList.get(position));
     }
 
-    public void selectTips(TextView tv, int position) {
-        if (mDatas != null && mDatas.size() > 0)
-            bindTips(tv, mDatas.get(position));
+    void selectTips(TextView tv, int position) {
+        if (mDataList != null && mDataList.size() > 0)
+            bindTips(tv, mDataList.get(position));
     }
 
     protected abstract void bindTips(TextView tv, T t);
