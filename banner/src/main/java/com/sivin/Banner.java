@@ -19,6 +19,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -41,9 +42,6 @@ public class Banner extends RelativeLayout {
     private static final String TAG = Banner.class.getSimpleName();
 
     private Context mContext;
-
-    private SparseArray<ImageView> mItemArrays;
-
     /**
      * 布局参数
      */
@@ -237,7 +235,7 @@ public class Banner extends RelativeLayout {
     private void initView(Context context) {
         mContext = context;
 
-        mItemArrays = new SparseArray<>();
+//        mItemArrays = new SparseArray<>();
 
         //初始化ViewPager
         mViewPager = new SLooperViewPager(context);
@@ -436,7 +434,8 @@ public class Banner extends RelativeLayout {
 
         @Override
         public Object instantiateItem(ViewGroup container, final int position) {
-            ImageView view = createItemView(position);
+            ImageView view  = new ImageView(mContext);
+            view.setScaleType(ImageView.ScaleType.CENTER_CROP);;
             mBannerAdapter.setImageViewSource(view, position);
             view.setOnClickListener(new OnClickListener() {
                 @Override
@@ -446,7 +445,6 @@ public class Banner extends RelativeLayout {
                     }
                 }
             });
-
             container.addView(view);
             return view;
         }
@@ -460,30 +458,12 @@ public class Banner extends RelativeLayout {
         public boolean isViewFromObject(View view, Object object) {
             return view == object;
         }
-
-
         @Override
         public int getItemPosition(Object object) {
             return POSITION_NONE;
         }
     }
 
-    /**
-     * create itemView
-     * @param position position
-     * @return imageView
-     */
-    private ImageView createItemView(int position) {
-        ImageView iv = mItemArrays.get(position);
-        if (iv == null) {
-            iv = new ImageView(mContext);
-            iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            if (position != 0 && position != mData.size() - 1) {
-                mItemArrays.put(position, iv);
-            }
-        }
-        return iv;
-    }
 
 
     private OnBannerItemClickListener onVpItemClickListener;
