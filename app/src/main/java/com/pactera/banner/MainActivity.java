@@ -133,11 +133,14 @@ public class MainActivity extends AppCompatActivity {
         model = new BannerModel();
         model.setImageUrl("https://gma.alicdn.com/simba/img/TB1txffHVXXXXayXVXXSutbFXXX.jpg_q50.jpg");
         model.setTips("这是页面2");
-//        mDatas.add(model);
+        mDatas.add(model);
         model = new BannerModel();
         model.setImageUrl("https://gw.alicdn.com/tps/i2/TB1ku8oMFXXXXciXpXXdIns_XXX-1125-352.jpg_q50.jpg");
         model.setTips("这是页面3");
-//        mDatas.add(model);
+        mDatas.add(model);
+        model.setImageUrl("https://gma.alicdn.com/simba/img/TB1txffHVXXXXayXVXXSutbFXXX.jpg_q50.jpg");
+        model.setTips("这是页面4");
+        mDatas.add(model);
         mBanner.notifyDataHasChanged();
     }
 
