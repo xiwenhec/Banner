@@ -125,6 +125,8 @@ public class Banner extends RelativeLayout {
      */
     protected ScheduledExecutorService mExecutor;
 
+    private int mViewPagerPadding = 0;
+
 
     /**
      * 播放下一个执行器
@@ -223,6 +225,9 @@ public class Banner extends RelativeLayout {
         } else if (attr == R.styleable.SivinBanner_banner_tipTextSize) {
             //提示文字大小
             mTipTextSize = typedArray.getDimensionPixelSize(attr, mTipTextSize);
+        }else if(attr == R.styleable.SivinBanner_banner_ViewPager_padding){
+            //viewPager的padding
+            mViewPagerPadding = typedArray.getDimensionPixelSize(attr, mViewPagerPadding);
         }
 
     }
@@ -235,7 +240,6 @@ public class Banner extends RelativeLayout {
     private void initView(Context context) {
         mContext = context;
 
-//        mItemArrays = new SparseArray<>();
 
         //初始化ViewPager
         mViewPager = new SLooperViewPager(context);
@@ -535,6 +539,12 @@ public class Banner extends RelativeLayout {
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         pauseScroll();
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        goScroll();
     }
 
     /**

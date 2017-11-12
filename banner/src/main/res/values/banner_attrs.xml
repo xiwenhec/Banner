@@ -28,6 +28,8 @@
         <attr name="banner_tipTextColor" format="reference|color" />
         <!-- 提示文案的文字大小 -->
         <attr name="banner_tipTextSize" format="dimension" />
+        <!--viewPager 内padding-->
+        <attr name="banner_ViewPager_padding" format="dimension" />
     </declare-styleable>
 
 </resources>
